@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lateef:wght@400;700&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#faf6f0;--ivory:#f5ede0;--rose:#c9907a;--rose-light:#e8c5b5;--rose-deep:#8c5a48;--green:#2d4a3e;--green-mid:#3d6455;--green-light:#c8ddd6;--gold:#b8966a;--gold-light:#e8d5b5;--text-dark:#2a2016;--text-mid:#5c4a38;--text-soft:#8a7060;--border:#ddd0bc}
+body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--text-dark);overflow-x:hidden}
+.rtl{direction:rtl;text-align:right}
+.ltr{direction:ltr;text-align:left}
+
+nav{background:var(--green);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;gap:1rem}
+.nav-logo{font-family:'Cormorant Garamond',serif;color:var(--gold-light);font-size:1.3rem;font-weight:500;letter-spacing:0.06em;white-space:nowrap}
+.nav-links{display:flex;gap:1rem;list-style:none;flex-wrap:wrap}
+.nav-links a{color:var(--green-light);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;font-weight:500;white-space:nowrap}
+.nav-links a:hover{color:var(--gold-light)}
+
+.lang-bar{background:var(--ivory);border-bottom:0.5px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+.lang-label{font-size:0.72rem;color:var(--text-soft);letter-spacing:0.12em;text-transform:uppercase;margin-right:0.5rem}
+.lang-btn{background:none;border:0.5px solid var(--border);border-radius:16px;padding:5px 14px;font-size:0.78rem;cursor:pointer;color:var(--text-mid);transition:all 0.2s;font-family:'Nunito',sans-serif}
+.lang-btn:hover{border-color:var(--rose);color:var(--rose)}
+.lang-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+.hero{background:var(--green);padding:3.5rem 2rem 3rem;text-align:center;position:relative}
+.hero-arabic{font-family:'Lateef',serif;font-size:2rem;color:var(--gold-light);opacity:0.85;margin-bottom:0.8rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:#fff;font-weight:300;line-height:1.2;margin-bottom:0.7rem}
+.hero h1 em{font-style:italic;color:var(--rose-light)}
+.hero-sub{color:var(--green-light);font-size:0.92rem;max-width:540px;margin:0 auto 1.8rem;line-height:1.9;font-weight:300}
+.hero-btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--rose);color:#fff;border:none;padding:11px 28px;border-radius:28px;font-family:'Nunito',sans-serif;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;transition:all 0.2s}
+.btn-primary:hover{background:var(--rose-deep)}
+.btn-outline{background:transparent;color:var(--gold-light);border:1px solid var(--gold);padding:11px 28px;border-radius:28px;font-family:'Nunito',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+.btn-outline:hover{background:rgba(184,150,106,0.15)}
+
+.ornament{text-align:center;padding:1rem;color:var(--gold);font-size:1.2rem;opacity:0.6;letter-spacing:0.5em}
+
+section{padding:3rem 2rem}
+.section-header{text-align:center;margin-bottom:2rem}
+.section-tag{display:inline-block;background:var(--gold-light);color:var(--gold);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;padding:4px 14px;border-radius:12px;margin-bottom:0.6rem;font-weight:500}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--text-dark);letter-spacing:0.02em;line-height:1.3}
+.section-title em{font-style:italic;color:var(--rose)}
+.section-desc{color:var(--text-soft);font-size:0.88rem;margin-top:0.5rem;line-height:1.8;font-weight:300}
+
+.featured-article{background:var(--green);border-radius:16px;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center;max-width:820px;margin:0 auto 2rem}
+.feat-badge{display:inline-block;background:var(--rose);color:#fff;font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:10px;margin-bottom:0.8rem}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:#fff;font-weight:400;line-height:1.3;margin-bottom:0.7rem}
+.feat-excerpt{color:var(--green-light);font-size:0.85rem;line-height:1.8;font-weight:300;margin-bottom:1rem}
+.feat-meta{display:flex;gap:1rem;flex-wrap:wrap}
+.feat-meta-item{color:var(--gold-light);font-size:0.76rem;opacity:0.8}
+.feat-visual{background:var(--green-mid);border-radius:12px;height:200px;display:flex;align-items:center;justify-content:center}
+.feat-visual-arabic{font-family:'Lateef',serif;font-size:3rem;color:var(--gold-light);opacity:0.7;display:block;text-align:center}
+.feat-visual-label{color:var(--green-light);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;text-align:center;opacity:0.7;margin-top:0.3rem}
+
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:820px;margin:0 auto}
+.article-card{background:#fff;border:0.5px solid var(--border);border-radius:14px;overflow:hidden;transition:all 0.25s;cursor:pointer}
+.article-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(45,74,62,0.1)}
+.card-top{background:var(--ivory);padding:1.2rem 1.2rem 0.8rem;border-bottom:0.5px solid var(--border)}
+.card-category{font-size:0.66rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.4rem}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--text-dark);line-height:1.4}
+.card-body{padding:0.9rem 1.2rem 1rem}
+.card-excerpt{font-size:0.8rem;color:var(--text-soft);line-height:1.7;font-weight:300}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1.2rem;border-top:0.5px solid var(--border);background:var(--cream)}
+.card-stat{color:var(--text-soft);font-size:0.73rem}
+.like-btn{background:none;border:0.5px solid var(--border);border-radius:20px;padding:4px 12px;font-size:0.73rem;color:var(--rose);cursor:pointer;transition:all 0.2s;font-family:'Nunito',sans-serif}
+.like-btn:hover,.like-btn.liked{background:var(--rose-light);border-color:var(--rose);color:var(--rose-deep)}
+
+.quiz-section{background:var(--ivory)}
+.quizzes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;max-width:820px;margin:0 auto}
+.quiz-card{background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.quiz-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.quiz-card:nth-child(1)::before{background:var(--rose)}
+.quiz-card:nth-child(2)::before{background:var(--green)}
+.quiz-card:nth-child(3)::before{background:var(--gold)}
+.quiz-card:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,0.07)}
+.quiz-icon{width:48px;height:48px;border-radius:50%;margin:0 auto 0.8rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.quiz-icon.rose{background:var(--rose-light)}
+.quiz-icon.green{background:var(--green-light)}
+.quiz-icon.gold{background:var(--gold-light)}
+.quiz-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--text-dark);margin-bottom:0.4rem}
+.quiz-desc{font-size:0.78rem;color:var(--text-soft);line-height:1.6;font-weight:300;margin-bottom:1rem}
+.quiz-start-btn{width:100%;background:var(--green);color:#fff;border:none;padding:9px;border-radius:18px;font-family:'Nunito',sans-serif;font-size:0.76rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+.quiz-start-btn:hover{background:var(--green-mid)}
+
+.books-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:0.9rem;max-width:820px;margin:0 auto}
+.book-card{background:#fff;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s}
+.book-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.08)}
+.book-spine{height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.book-spine.s1{background:var(--green)}.book-spine.s2{background:#8c5a48}.book-spine.s3{background:#4a6741}.book-spine.s4{background:#5a4870}
+.book-arabic{font-family:'Lateef',serif;color:rgba(255,255,255,0.75);font-size:1.8rem}
+.book-label{color:rgba(255,255,255,0.55);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase}
+.book-info{padding:0.8rem}
+.book-title{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:500;color:var(--text-dark);margin-bottom:0.2rem;line-height:1.3}
+.book-author{font-size:0.7rem;color:var(--text-soft);font-style:italic}
+.book-stars{color:var(--gold);font-size:0.68rem;margin-top:0.3rem}
+
+.comment-section{max-width:660px;margin:0 auto}
+.comment-box{background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:0.9rem 1.1rem;margin-bottom:0.8rem}
+.comment-author{font-weight:500;font-size:0.82rem;color:var(--text-dark);margin-bottom:0.2rem;display:flex;align-items:center;gap:8px}
+.comment-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:600;color:#fff;flex-shrink:0}
+.av1{background:var(--rose)}.av2{background:var(--green)}.av3{background:var(--gold)}.av4{background:#5a4870}.av5{background:#4a6741}
+.comment-time{font-size:0.68rem;color:var(--text-soft);font-weight:300;margin-left:auto}
+.comment-text{font-size:0.8rem;color:var(--text-mid);line-height:1.7;padding-left:34px}
+.add-comment{display:flex;gap:0.7rem;align-items:flex-start;margin-top:1.2rem}
+.add-comment textarea{flex:1;border:0.5px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'Nunito',sans-serif;font-size:0.8rem;color:var(--text-dark);background:var(--cream);resize:none;height:64px;outline:none;transition:border-color 0.2s}
+.add-comment textarea:focus{border-color:var(--rose)}
+.add-comment button{background:var(--rose);color:#fff;border:none;padding:9px 18px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.78rem;cursor:pointer;white-space:nowrap;transition:background 0.2s;align-self:flex-end}
+.add-comment button:hover{background:var(--rose-deep)}
+
+footer{background:var(--green);padding:2rem 2rem;text-align:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold-light);font-weight:300;margin-bottom:0.2rem}
+.footer-arabic{font-family:'Lateef',serif;font-size:1.3rem;color:var(--gold);opacity:0.6;margin-bottom:0.8rem}
+.footer-links{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-bottom:1rem}
+.footer-links a{color:var(--green-light);font-size:0.75rem;text-decoration:none;opacity:0.8}
+.footer-links a:hover{opacity:1}
+.footer-copy{color:var(--green-light);font-size:0.7rem;opacity:0.5;font-style:italic}
+
+.quiz-overlay{display:none;background:rgba(0,0,0,0.45);min-height:500px;align-items:center;justify-content:center;padding:2rem}
+.quiz-overlay.active{display:flex}
+.quiz-inner{background:#fff;border-radius:18px;padding:2rem;max-width:480px;width:100%;position:relative}
+.quiz-inner h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--text-dark);margin-bottom:0.2rem}
+.quiz-inner p.sub{color:var(--text-soft);font-size:0.82rem;margin-bottom:1.2rem}
+.q-progress{background:var(--ivory);border-radius:20px;height:5px;margin-bottom:1.2rem;overflow:hidden}
+.q-progress-bar{height:100%;background:var(--rose);border-radius:20px;transition:width 0.4s}
+.q-text{font-size:0.95rem;font-weight:500;color:var(--text-dark);margin-bottom:1rem;line-height:1.5}
+.q-options{display:flex;flex-direction:column;gap:0.5rem}
+.q-option{background:var(--cream);border:0.5px solid var(--border);border-radius:9px;padding:10px 14px;cursor:pointer;font-size:0.84rem;color:var(--text-mid);transition:all 0.2s;text-align:left;font-family:'Nunito',sans-serif;line-height:1.4}
+.q-option:hover{background:var(--rose-light);border-color:var(--rose);color:var(--rose-deep)}
+.q-option.selected{background:var(--rose-light);border-color:var(--rose);color:var(--rose-deep)}
+.quiz-result{text-align:center;padding:1rem 0}
+.quiz-result .r-icon{font-size:2.5rem;margin-bottom:0.8rem}
+.quiz-result h4{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--text-dark);margin-bottom:0.5rem}
+.quiz-result p{color:var(--text-soft);font-size:0.85rem;line-height:1.7;margin-bottom:1.2rem}
+.quiz-close{position:absolute;top:0.8rem;right:0.9rem;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-soft)}
+.btn-green{background:var(--green);color:#fff;border:none;padding:10px 26px;border-radius:18px;font-family:'Nunito',sans-serif;font-size:0.82rem;cursor:pointer;margin:0 4px}
+.btn-green:hover{background:var(--green-mid)}
+.btn-close2{background:var(--ivory);color:var(--text-mid);border:0.5px solid var(--border);padding:10px 20px;border-radius:18px;font-family:'Nunito',sans-serif;font-size:0.82rem;cursor:pointer;margin:0 4px}
+</style>
+
+<nav>
+  <div class="nav-logo">✦ <span id="nav-name">Umm al-Nour</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="scrollTo('art-sec')"><span class="t" data-key="nav_articles">Articles</span></a></li>
+    <li><a href="#" onclick="scrollTo('quiz-sec')"><span class="t" data-key="nav_quizzes">Quizzes</span></a></li>
+    <li><a href="#" onclick="scrollTo('book-sec')"><span class="t" data-key="nav_books">Books</span></a></li>
+    <li><a href="#" onclick="scrollTo('comm-sec')"><span class="t" data-key="nav_community">Community</span></a></li>
+  </ul>
+</nav>
+
+<div class="lang-bar">
+  <span class="lang-label">Language:</span>
+  <button class="lang-btn active" onclick="setLang('en')">🇬🇧 English</button>
+  <button class="lang-btn" onclick="setLang('ar')">🇸🇦 العربية</button>
+  <button class="lang-btn" onclick="setLang('fa')">🇮🇷 فارسی</button>
+  <button class="lang-btn" onclick="setLang('tr')">🇹🇷 Türkçe</button>
+  <button class="lang-btn" onclick="setLang('ru')">🇷🇺 Русский</button>
+</div>
+
+<div class="hero" id="heroSec">
+  <div class="hero-arabic" id="hero-arabic">بسم الله الرحمن الرحيم</div>
+  <h1 id="hero-h1">Stay a Lady<br>in Every <em>Century</em></h1>
+  <p class="hero-sub" id="hero-sub">A sanctuary for the Muslim woman who wishes to preserve her grace, her faith, and her feminine nature — without losing herself to the noise of the modern world.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" id="hero-btn1" onclick="openQuiz()">Take the Lady Test ✦</button>
+    <button class="btn-outline" id="hero-btn2" onclick="scrollTo('art-sec')">Read Articles</button>
+  </div>
+</div>
+
+<div class="ornament">— ✦ —</div>
+
+<section id="art-sec">
+  <div class="section-header">
+    <span class="section-tag" id="tag-articles">Featured Articles</span>
+    <h2 class="section-title" id="title-articles">Words to <em>Nourish</em> Your Soul</h2>
+    <p class="section-desc" id="desc-articles">Reflections on faith, femininity, and living with purpose in today's world.</p>
+  </div>
+  <div class="featured-article" id="feat-wrap">
+    <div>
+      <span class="feat-badge" id="feat-badge">Editor's Choice</span>
+      <div class="feat-title" id="feat-title">How to Keep Your Softness in a World That Wants You Hard</div>
+      <p class="feat-excerpt" id="feat-excerpt">In a time when strength is measured by loudness and hustle, the Muslim woman carries a different kind of power — the power of stillness, dignity, and unwavering grace.</p>
+      <div class="feat-meta">
+        <span class="feat-meta-item">♡ 312</span>
+        <span class="feat-meta-item">💬 48</span>
+        <span class="feat-meta-item" id="feat-readtime">5 min read</span>
+      </div>
+    </div>
+    <div class="feat-visual">
+      <div><div class="feat-visual-arabic">المرأة</div><div class="feat-visual-label" id="feat-visual-label">The Woman</div></div>
+    </div>
+  </div>
+  <div class="articles-grid">
+    <div class="article-card">
+      <div class="card-top">
+        <div class="card-category" data-key="cat_faith">Faith & Identity</div>
+        <div class="card-title" data-key="art1_title">The Hijab Is Not a Burden — It Is a Crown</div>
+      </div>
+      <div class="card-body"><p class="card-excerpt" data-key="art1_exc">Rediscovering the beauty and dignity of modesty as a choice rooted in love, not obligation.</p></div>
+      <div class="card-footer"><span class="card-stat">💬 24</span><button class="like-btn" onclick="toggleLike(this)">♡ 87</button></div>
+    </div>
+    <div class="article-card">
+      <div class="card-top">
+        <div class="card-category" data-key="cat_modern">Modern Life</div>
+        <div class="card-title" data-key="art2_title">Social Media and the Muslim Lady: Where Is the Line?</div>
+      </div>
+      <div class="card-body"><p class="card-excerpt" data-key="art2_exc">How to use technology without letting it strip you of your hayaa and inner peace.</p></div>
+      <div class="card-footer"><span class="card-stat">💬 41</span><button class="like-btn" onclick="toggleLike(this)">♡ 156</button></div>
+    </div>
+    <div class="article-card">
+      <div class="card-top">
+        <div class="card-category" data-key="cat_rel">Relationships</div>
+        <div class="card-title" data-key="art3_title">A Lady in Her Home: Strength That Looks Like Gentleness</div>
+      </div>
+      <div class="card-body"><p class="card-excerpt" data-key="art3_exc">The mother, the wife, the daughter — how Islam elevates these roles without diminishing you.</p></div>
+      <div class="card-footer"><span class="card-stat">💬 33</span><button class="like-btn" onclick="toggleLike(this)">♡ 201</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz-sec" class="quiz-section">
+  <div class="section-header">
+    <span class="section-tag" id="tag-quiz">Self-Discovery</span>
+    <h2 class="section-title" id="title-quiz">Are You a <em id="quiz-em">True Lady?</em></h2>
+    <p class="section-desc" id="desc-quiz">Honest, thoughtful quizzes to reflect on your character and grow.</p>
+  </div>
+  <div class="quizzes-grid">
+    <div class="quiz-card" onclick="openQuiz()">
+      <div class="quiz-icon rose">🌹</div>
+      <div class="quiz-title" data-key="quiz1_title">Are You a Real Lady?</div>
+      <p class="quiz-desc" data-key="quiz1_desc">Test your manners, your character, and your spirit against the timeless ideals of Muslim womanhood.</p>
+      <button class="quiz-start-btn" data-key="btn_begin">Begin the Test</button>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon green">🌿</div>
+      <div class="quiz-title" data-key="quiz2_title">How Strong Is Your Hayaa?</div>
+      <p class="quiz-desc" data-key="quiz2_desc">Modesty is more than clothing — it's a state of heart. Discover where you stand.</p>
+      <button class="quiz-start-btn" data-key="btn_begin">Begin the Test</button>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-icon gold">📿</div>
+      <div class="quiz-title" data-key="quiz3_title">What Kind of Muslim Woman Are You?</div>
+      <p class="quiz-desc" data-key="quiz3_desc">Scholar, caretaker, activist, artist — explore your God-given nature and role.</p>
+      <button class="quiz-start-btn" data-key="btn_begin">Begin the Test</button>
+    </div>
+  </div>
+</section>
+
+<section id="book-sec">
+  <div class="section-header">
+    <span class="section-tag" id="tag-books">Reading Corner</span>
+    <h2 class="section-title" id="title-books">Books for the <em>Nourished</em> Mind</h2>
+    <p class="section-desc" id="desc-books">Curated reads for the Muslim woman seeking wisdom and inspiration.</p>
+  </div>
+  <div class="books-grid">
+    <div class="book-card"><div class="book-spine s1"><span class="book-arabic">علم</span><span class="book-label" data-key="b1_word">Knowledge</span></div><div class="book-info"><div class="book-title">Reclaim Your Heart</div><div class="book-author">Yasmin Mogahed</div><div class="book-stars">★★★★★</div></div></div>
+    <div class="book-card"><div class="book-spine s2"><span class="book-arabic">نور</span><span class="book-label" data-key="b2_word">Light</span></div><div class="book-info"><div class="book-title">Muslim Women Are Everything</div><div class="book-author">Seema Yasmin</div><div class="book-stars">★★★★☆</div></div></div>
+    <div class="book-card"><div class="book-spine s3"><span class="book-arabic">صبر</span><span class="book-label" data-key="b3_word">Patience</span></div><div class="book-info"><div class="book-title">The Secret of Divine Love</div><div class="book-author">A. Helwa</div><div class="book-stars">★★★★★</div></div></div>
+    <div class="book-card"><div class="book-spine s4"><span class="book-arabic">حياء</span><span class="book-label" data-key="b4_word">Modesty</span></div><div class="book-info"><div class="book-title">The Ideal Muslimah</div><div class="book-author">M. Ali al-Hashimi</div><div class="book-stars">★★★★★</div></div></div>
+  </div>
+</section>
+
+<section id="comm-sec" style="background:var(--ivory)">
+  <div class="section-header">
+    <span class="section-tag" id="tag-comm">Community Voices</span>
+    <h2 class="section-title" id="title-comm">Sisters <em>Speaking</em></h2>
+    <p class="section-desc" id="desc-comm">A space to reflect, share, and encourage one another on this journey.</p>
+  </div>
+  <div class="comment-section">
+    <div class="comment-box"><div class="comment-author"><div class="comment-avatar av1">ف</div><span id="c1-name">Fatima M.</span><span class="comment-time" id="c1-time">2 days ago</span></div><p class="comment-text" id="c1-text">This article about social media truly opened my eyes. JazakAllah khayr for putting it into words.</p></div>
+    <div class="comment-box"><div class="comment-author"><div class="comment-avatar av2">ن</div><span id="c2-name">Nour S.</span><span class="comment-time" id="c2-time">3 days ago</span></div><p class="comment-text" id="c2-text">The quiz was a beautiful reminder that being a lady is about sincerity. Alhamdulillah for this site.</p></div>
+    <div class="comment-box"><div class="comment-author"><div class="comment-avatar av3">ز</div><span id="c3-name">Zaynab A.</span><span class="comment-time" id="c3-time">1 week ago</span></div><p class="comment-text" id="c3-text">Finally a space that honours the Muslim woman without telling her to modernise her values. Barakallahu feek.</p></div>
+    <div id="user-comments"></div>
+    <div class="add-comment"><textarea id="commentInput" data-placeholder-key="comment_placeholder">Share your thoughts, sister…</textarea><button id="send-btn" onclick="addComment()">Send ✦</button></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">✦ <span id="footer-name">Umm al-Nour</span></div>
+  <div class="footer-arabic" id="footer-arabic">أم النور</div>
+  <div class="footer-links"><a href="#" data-key="footer_about">About</a><a href="#" data-key="footer_write">Write for Us</a><a href="#" data-key="footer_books">Books</a><a href="#" data-key="footer_contact">Contact</a></div>
+  <p class="footer-copy" id="footer-copy">Made with love for every Muslim sister seeking her truest self. © 2025 Umm al-Nour</p>
+</footer>
+
+<div class="quiz-overlay" id="quizOverlay">
+  <div class="quiz-inner" id="quizInner">
+    <button class="quiz-close" onclick="closeQuiz()">✕</button>
+    <h3 id="qModalTitle">Are You a Real Lady?</h3>
+    <p class="sub" id="qModalSub">Reflect honestly — this is a mirror, not a test.</p>
+    <div class="q-progress"><div class="q-progress-bar" id="progBar" style="width:10%"></div></div>
+    <div id="liveQuiz">
+      <div class="q-text" id="qText"></div>
+      <div class="q-options" id="qOptions"></div>
+    </div>
+    <div id="quizResult" style="display:none">
+      <div class="quiz-result">
+        <div class="r-icon">🌹</div>
+        <h4 id="resultTitle"></h4>
+        <p id="resultText"></p>
+        <button class="btn-green" onclick="restartQuiz()" id="retake-btn">Retake Quiz</button>
+        <button class="btn-close2" onclick="closeQuiz()" id="close-btn2">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LANGS={
+en:{
+  dir:'ltr',
+  nav_name:'Umm al-Nour',
+  nav_articles:'Articles',nav_quizzes:'Quizzes',nav_books:'Books',nav_community:'Community',
+  hero_arabic:'بسم الله الرحمن الرحيم',
+  hero_h1:'Stay a Lady<br>in Every <em>Century</em>',
+  hero_sub:'A sanctuary for the Muslim woman who wishes to preserve her grace, her faith, and her feminine nature — without losing herself to the noise of the modern world.',
+  hero_btn1:'Take the Lady Test ✦',hero_btn2:'Read Articles',
+  tag_articles:'Featured Articles',title_articles:'Words to <em>Nourish</em> Your Soul',desc_articles:"Reflections on faith, femininity, and living with purpose in today's world.",
+  feat_badge:"Editor's Choice",feat_title:'How to Keep Your Softness in a World That Wants You Hard',feat_excerpt:'In a time when strength is measured by loudness, the Muslim woman carries a different kind of power — the power of stillness, dignity, and grace.',feat_readtime:'5 min read',feat_visual_label:'The Woman',
+  cat_faith:'Faith & Identity',cat_modern:'Modern Life',cat_rel:'Relationships',
+  art1_title:'The Hijab Is Not a Burden — It Is a Crown',art1_exc:'Rediscovering the beauty and dignity of modesty as a choice rooted in love, not obligation.',
+  art2_title:'Social Media and the Muslim Lady: Where Is the Line?',art2_exc:'How to use technology without letting it strip you of your hayaa and inner peace.',
+  art3_title:'A Lady in Her Home: Strength That Looks Like Gentleness',art3_exc:'The mother, the wife, the daughter — how Islam elevates these roles without diminishing you.',
+  tag_quiz:'Self-Discovery',title_quiz:'Are You a <em>True Lady?</em>',desc_quiz:'Honest, thoughtful quizzes to reflect on your character and grow.',
+  quiz1_title:'Are You a Real Lady?',quiz1_desc:'Test your manners, your character, and your spirit against the timeless ideals of Muslim womanhood.',
+  quiz2_title:'How Strong Is Your Hayaa?',quiz2_desc:"Modesty is more than clothing — it's a state of heart. Discover where you stand.",
+  quiz3_title:'What Kind of Muslim Woman Are You?',quiz3_desc:'Scholar, caretaker, activist, artist — explore your God-given nature and role.',
+  btn_begin:'Begin the Test',
+  tag_books:'Reading Corner',title_books:'Books for the <em>Nourished</em> Mind',desc_books:'Curated reads for the Muslim woman seeking wisdom and inspiration.',
+  b1_word:'Knowledge',b2_word:'Light',b3_word:'Patience',b4_word:'Modesty',
+  tag_comm:'Community Voices',title_comm:'Sisters <em>Speaking</em>',desc_comm:'A space to reflect, share, and encourage one another on this journey.',
+  c1_name:'Fatima M.',c2_name:'Nour S.',c3_name:'Zaynab A.',
+  c1_time:'2 days ago',c2_time:'3 days ago',c3_time:'1 week ago',
+  c1_text:'This article about social media truly opened my eyes. JazakAllah khayr for putting it into words.',
+  c2_text:'The quiz was a beautiful reminder that being a lady is about sincerity. Alhamdulillah for this site.',
+  c3_text:'Finally a space that honours the Muslim woman without telling her to modernise her values. Barakallahu feek.',
+  comment_placeholder:'Share your thoughts, sister…',send_btn:'Send ✦',
+  footer_name:'Umm al-Nour',footer_arabic:'أم النور',footer_about:'About',footer_write:'Write for Us',footer_books:'Books',footer_contact:'Contact',
+  footer_copy:'Made with love for every Muslim sister seeking her truest self. © 2025 Umm al-Nour',
+  q_modal_title:'Are You a Real Lady?',q_modal_sub:'Reflect honestly — this is a mirror, not a test.',
+  retake_btn:'Retake Quiz',close_btn2:'Close',
+  questions:[
+    {q:'When someone speaks harshly to you, your first instinct is to…',opts:['Respond with equal sharpness','Take a breath and stay calm','Walk away in silence','Cry and feel hurt']},
+    {q:'How do you treat those who serve you — a cleaner, a cashier, a waitress?',opts:['As equals deserving warmth and respect','Politely but briefly','I am sometimes impatient, I admit','I rarely notice them']},
+    {q:'When you are alone and no one is watching, your manners…',opts:['Are exactly the same as in public','Relax a little but stay decent','Change quite a lot','I have never thought about this']},
+    {q:'A friend shares a secret. Later others gossip about her. You…',opts:['Defend her quietly and leave the conversation','Stay silent — you feel uncomfortable','Add nothing but listen','Share what you know to help explain']},
+    {q:'How do you handle overwhelming emotions?',opts:['Turn to prayer and reflection first','Talk to someone I trust','I sometimes lose control, then regret it','I keep everything inside']},
+  ],
+  results:[
+    {title:'A Lady of Light',text:'MashaAllah — you carry yourself with rare grace and sincerity. Your manners come from the heart, not from habit. Keep nurturing this gift.'},
+    {title:'A Lady in the Making',text:'You have a beautiful foundation. With intention and practice, your ladyhood will bloom more fully. Every day is an opportunity.'},
+    {title:'A Sister Finding Her Way',text:'You are honest — and honesty is the first step. Reflect on the areas where your inner lady feels shy. She is there, waiting to emerge.'},
+  ]
+},
+ar:{
+  dir:'rtl',
+  nav_name:'أم النور',
+  nav_articles:'المقالات',nav_quizzes:'الاختبارات',nav_books:'الكتب',nav_community:'المجتمع',
+  hero_arabic:'بسم الله الرحمن الرحيم',
+  hero_h1:'ابقِ سيدةً<br>في كلِّ <em>عصر</em>',
+  hero_sub:'ملاذٌ للمرأة المسلمة التي تُريد أن تحافظ على رقّتها وإيمانها وطبيعتها الأنثوية — دون أن تضيع في ضوضاء العالم الحديث.',
+  hero_btn1:'اختبري نفسكِ ✦',hero_btn2:'اقرئي المقالات',
+  tag_articles:'مقالات مختارة',title_articles:'كلماتٌ تُغذّي <em>الروح</em>',desc_articles:'تأمّلات في الإيمان والأنوثة والعيش بهدف في عالم اليوم.',
+  feat_badge:'اختيار المحررة',feat_title:'كيف تحافظين على رقّتكِ في عالمٍ يريدكِ قاسية؟',feat_excerpt:'في زمنٍ تُقاس فيه القوة بالصخب، تحمل المرأة المسلمة نوعاً آخر من القوة — قوة السكينة والكرامة والوقار.',feat_readtime:'٥ دقائق للقراءة',feat_visual_label:'المرأة',
+  cat_faith:'الإيمان والهوية',cat_modern:'الحياة المعاصرة',cat_rel:'العلاقات',
+  art1_title:'الحجاب ليس عبئاً — بل هو تاج',art1_exc:'إعادة اكتشاف جمال العفّة وكرامتها باعتبارها اختياراً يصدر من الحب، لا من الإلزام.',
+  art2_title:'المسلمة ووسائل التواصل: أين الحدّ؟',art2_exc:'كيف تستخدمين التكنولوجيا دون أن تسرق منكِ حياءك وسكينتك الداخلية.',
+  art3_title:'السيدة في بيتها: قوةٌ تبدو كالرفق',art3_exc:'الأم والزوجة والابنة — كيف يرفع الإسلام هذه الأدوار دون أن ينتقص من قيمتكِ.',
+  tag_quiz:'اكتشاف الذات',title_quiz:'هل أنتِ <em>سيدةٌ حقيقية؟</em>',desc_quiz:'اختباراتٌ صادقة للتأمّل في شخصيتكِ والنمو الداخلي.',
+  quiz1_title:'هل أنتِ سيدةٌ حقيقية؟',quiz1_desc:'اختبري أخلاقكِ وشخصيتكِ وروحكِ وفق المُثُل الإسلامية الأصيلة للمرأة.',
+  quiz2_title:'ما مدى قوة حيائكِ؟',quiz2_desc:'الحياء أعمق من اللباس — إنه حالةٌ من القلب. اكتشفي موقعكِ.',
+  quiz3_title:'من أيّ نوعٍ أنتِ؟',quiz3_desc:'عالمة، مربّية، ناشطة، فنّانة — اكتشفي طبيعتكِ ودوركِ الذي وهبكِ الله إياه.',
+  btn_begin:'ابدئي الاختبار',
+  tag_books:'ركن القراءة',title_books:'كتبٌ للعقل <em>المتغذّي</em>',desc_books:'قراءاتٌ مُختارة للمرأة المسلمة الساعية إلى الحكمة والإلهام.',
+  b1_word:'علم',b2_word:'نور',b3_word:'صبر',b4_word:'حياء',
+  tag_comm:'أصوات المجتمع',title_comm:'الأخوات <em>يتكلّمن</em>',desc_comm:'فضاءٌ للتأمّل والمشاركة وتشجيع بعضنا على هذا الدرب.',
+  c1_name:'فاطمة م.',c2_name:'نور س.',c3_name:'زينب أ.',
+  c1_time:'منذ يومين',c2_time:'منذ ٣ أيام',c3_time:'منذ أسبوع',
+  c1_text:'هذا المقال عن التواصل الاجتماعي فتح عينيَّ فعلاً. جزاكِ الله خيراً.',
+  c2_text:'كان الاختبار تذكيراً جميلاً بأن الأنوثة الحقيقية تبدأ من الصدق. الحمد لله على هذا الموقع.',
+  c3_text:'أخيراً مكانٌ يحترم المرأة المسلمة دون أن يطلب منها التخلّي عن قيمها. بارك الله فيكِ.',
+  comment_placeholder:'شاركي أفكاركِ يا أختي…',send_btn:'أرسلي ✦',
+  footer_name:'أم النور',footer_arabic:'أم النور',footer_about:'من نحن',footer_write:'اكتبي معنا',footer_books:'الكتب',footer_contact:'تواصلي معنا',
+  footer_copy:'صُنع بمحبة لكل أخت مسلمة تبحث عن ذاتها الحقيقية. © 2025 أم النور',
+  q_modal_title:'هل أنتِ سيدةٌ حقيقية؟',q_modal_sub:'أجيبي بصدق — هذا مرآة، ليس امتحاناً.',
+  retake_btn:'أعيدي الاختبار',close_btn2:'إغلاق',
+  questions:[
+    {q:'حين يتحدث إليكِ أحدٌ بقسوة، غريزتكِ الأولى أن…',opts:['تردّي بالمثل','تأخذي نفساً وتبقي هادئة','تبتعدي في صمت','تشعري بالجرح والبكاء']},
+    {q:'كيف تتعاملين مع من يخدمونكِ — عامل نظافة، كاشيرة، نادلة؟',opts:['كأنداد يستحقون الاحترام والدفء','باحترام لكن باختصار','أعترف أنني أفقد الصبر أحياناً','نادراً ما أنتبه إليهم']},
+    {q:'حين تكونين وحدكِ ولا يراكِ أحد، أخلاقكِ…',opts:['تماماً كما هي أمام الناس','تخفّ قليلاً لكن تبقى لائقة','تتغير كثيراً','لم أفكر في هذا من قبل']},
+    {q:'صديقتكِ تشارككِ سراً. لاحقاً تسمعين الآخرين يغتابونها. أنتِ…',opts:['تدافعين عنها بهدوء وتتركين المجلس','تصمتين — تشعرين بالضيق','لا تضيفين شيئاً لكن تستمعين','تشاركين ما تعلمينه توضيحاً']},
+    {q:'كيف تتعاملين مع مشاعركِ حين تطغى؟',opts:['تلجئين إلى الصلاة والتأمل أولاً','تتحدثين إلى شخص تثقين به','أحياناً أفقد السيطرة ثم أندم','أكتم كل شيء بداخلي']},
+  ],
+  results:[
+    {title:'سيدةٌ من نور',text:'ما شاء الله — تحملين نفسكِ بأناقة نادرة وصدق. أخلاقكِ تصدر من القلب. حافظي على هذه النعمة.'},
+    {title:'سيدةٌ في طور التكوين',text:'لديكِ أساسٌ جميل. بالنيّة والمثابرة ستزهر أنوثتكِ أكثر. كل يومٍ فرصة.'},
+    {title:'أختٌ تبحث عن طريقها',text:'أنتِ صادقة — والصدق هو الخطوة الأولى. تأمّلي في المواضع التي تخجل فيها سيدتكِ الداخلية. إنها موجودة، تنتظر.'},
+  ]
+},
+fa:{
+  dir:'rtl',
+  nav_name:'ام النور',
+  nav_articles:'مقالات',nav_quizzes:'آزمون‌ها',nav_books:'کتاب‌ها',nav_community:'جامعه',
+  hero_arabic:'بسم الله الرحمن الرحیم',
+  hero_h1:'در هر <em>قرنی</em><br>بانو بمان',
+  hero_sub:'پناهگاهی برای زن مسلمان که می‌خواهد لطافت، ایمان و طبیعت زنانه‌اش را حفظ کند — بدون آنکه خود را در غوغای دنیای مدرن گم کند.',
+  hero_btn1:'آزمون بانو ✦',hero_btn2:'مقالات را بخوان',
+  tag_articles:'مقالات ویژه',title_articles:'کلماتی که <em>روح</em> را می‌پرورند',desc_articles:'تأملاتی درباره ایمان، زنانگی و زندگی هدفمند در دنیای امروز.',
+  feat_badge:'انتخاب سردبیر',feat_title:'چطور نرمی‌ات را در دنیایی که می‌خواهد سخت باشی حفظ کنی؟',feat_excerpt:'در روزگاری که قدرت با سروصدا سنجیده می‌شود، زن مسلمان نوع دیگری از قدرت را حمل می‌کند — قدرت آرامش، کرامت و وقار.',feat_readtime:'۵ دقیقه مطالعه',feat_visual_label:'زن',
+  cat_faith:'ایمان و هویت',cat_modern:'زندگی مدرن',cat_rel:'روابط',
+  art1_title:'حجاب بار نیست — تاج است',art1_exc:'بازیابی زیبایی و کرامت عفاف به‌مثابه انتخابی از سر عشق، نه اجبار.',
+  art2_title:'بانوی مسلمان و شبکه‌های اجتماعی: خط کجاست؟',art2_exc:'چطور از فناوری استفاده کنیم بدون آنکه حیا و آرامش درونی‌مان را از دست بدهیم.',
+  art3_title:'بانو در خانه‌اش: قدرتی که شبیه مهربانی است',art3_exc:'مادر، همسر، دختر — اسلام چگونه این نقش‌ها را ارتقا می‌دهد بی‌آنکه از ارزش تو بکاهد.',
+  tag_quiz:'خودشناسی',title_quiz:'آیا <em>بانوی واقعی</em> هستی؟',desc_quiz:'آزمون‌هایی صادقانه برای تأمل در شخصیت و رشد درونی.',
+  quiz1_title:'آیا بانوی واقعی هستی؟',quiz1_desc:'اخلاق، شخصیت و روحت را با آرمان‌های ابدی زن مسلمان بسنج.',
+  quiz2_title:'حیای تو چقدر قوی است؟',quiz2_desc:'حیا فراتر از پوشش است — حالتی از قلب است. ببین کجا ایستاده‌ای.',
+  quiz3_title:'چه نوع زن مسلمانی هستی؟',quiz3_desc:'عالمه، مراقب، فعال، هنرمند — طبیعت خدادادی و نقش خود را کشف کن.',
+  btn_begin:'شروع آزمون',
+  tag_books:'گوشه کتاب',title_books:'کتاب‌هایی برای ذهن <em>متعالی</em>',desc_books:'خواندنی‌های برگزیده برای زن مسلمانی که در جستجوی حکمت و الهام است.',
+  b1_word:'علم',b2_word:'نور',b3_word:'صبر',b4_word:'حیا',
+  tag_comm:'صداهای جامعه',title_comm:'خواهران <em>سخن می‌گویند</em>',desc_comm:'فضایی برای تأمل، به‌اشتراک‌گذاری و تشویق یکدیگر در این مسیر.',
+  c1_name:'فاطمه م.',c2_name:'نور س.',c3_name:'زینب الف.',
+  c1_time:'۲ روز پیش',c2_time:'۳ روز پیش',c3_time:'یک هفته پیش',
+  c1_text:'این مقاله درباره شبکه‌های اجتماعی واقعاً چشمانم را باز کرد. جزاک الله خیراً.',
+  c2_text:'آزمون یادآوری زیبایی بود که بانو بودن یعنی صداقت. الحمدلله برای این سایت.',
+  c3_text:'بالاخره فضایی که زن مسلمان را بدون اینکه از ارزش‌هایش دست بکشد، احترام می‌گذارد.',
+  comment_placeholder:'افکارت را با ما در میان بگذار، خواهرم…',send_btn:'ارسال ✦',
+  footer_name:'ام النور',footer_arabic:'أم النور',footer_about:'درباره ما',footer_write:'برای ما بنویس',footer_books:'کتاب‌ها',footer_contact:'تماس',
+  footer_copy:'با عشق برای هر خواهر مسلمانی که در جستجوی خود واقعی‌اش است. © 2025 ام النور',
+  q_modal_title:'آیا بانوی واقعی هستی؟',q_modal_sub:'صادقانه پاسخ بده — این آینه است، نه امتحان.',
+  retake_btn:'دوباره آزمون بده',close_btn2:'بستن',
+  questions:[
+    {q:'وقتی کسی با تو تند صحبت می‌کند، اولین واکنش‌ات چیست؟',opts:['با همان تندی جواب می‌دهم','نفس عمیق می‌کشم و آرام می‌مانم','در سکوت دور می‌شوم','ناراحت می‌شوم و گریه می‌کنم']},
+    {q:'با کسانی که به تو خدمت می‌کنند چطور رفتار می‌کنی؟',opts:['با احترام و گرمی، مثل همتایان','مودبانه اما کوتاه','گاهی بی‌صبر می‌شوم، باید اعتراف کنم','خیلی توجه نمی‌کنم']},
+    {q:'وقتی تنها هستی و کسی نگاهت نمی‌کند، ادب‌ات…',opts:['دقیقاً مثل جلوی مردم است','کمی آرام‌تر می‌شود ولی محترمانه','خیلی فرق می‌کند','هرگز به این فکر نکرده‌ام']},
+    {q:'دوستت رازی می‌گوید. بعداً می‌شنوی که دیگران پشت سرش حرف می‌زنند. تو…',opts:['آرام از او دفاع می‌کنی و جمع را ترک می‌کنی','ساکت می‌مانی — ناراحت هستی','چیزی اضافه نمی‌کنی اما گوش می‌دهی','آنچه می‌دانی را برای توضیح می‌گویی']},
+    {q:'با احساسات طاقت‌فرسا چطور کنار می‌آیی؟',opts:['اول به نماز و تأمل پناه می‌برم','با کسی که بهش اعتماد دارم صحبت می‌کنم','گاهی کنترلم را از دست می‌دهم و بعد پشیمان می‌شوم','همه چیز را درون خودم نگه می‌دارم']},
+  ],
+  results:[
+    {title:'بانوی نور',text:'ماشاءالله — با وقار و صداقتی نادر خود را حمل می‌کنی. اخلاقت از قلب می‌آید. این نعمت را پرورش بده.'},
+    {title:'بانویی در حال شکوفایی',text:'پایه‌ای زیبا داری. با نیت و تمرین، بانو بودنت بیشتر شکوفا خواهد شد. هر روز فرصتی است.'},
+    {title:'خواهری که راهش را می‌یابد',text:'صادق هستی — و صداقت اولین قدم است. در بخش‌هایی که بانوی درونی‌ات خجالت می‌کشد تأمل کن. او آنجاست، منتظر است.'},
+  ]
+},
+tr:{
+  dir:'ltr',
+  nav_name:'Umm al-Nour',
+  nav_articles:'Makaleler',nav_quizzes:'Testler',nav_books:'Kitaplar',nav_community:'Topluluk',
+  hero_arabic:'بسم الله الرحمن الرحيم',
+  hero_h1:'Her <em>Çağda</em><br>Hanım Ol',
+  hero_sub:"Müslüman kadının zarafetini, imanını ve kadınsı özünü korumak isteyenler için bir sığınak — modern dünyanın gürültüsünde kaybolmadan.",
+  hero_btn1:'Hanım Testine Gir ✦',hero_btn2:'Makaleleri Oku',
+  tag_articles:'Öne Çıkan Makaleler',title_articles:'Ruhu <em>Besleyen</em> Kelimeler',desc_articles:"Bugünün dünyasında iman, kadınlık ve amaçlı yaşam üzerine düşünceler.",
+  feat_badge:'Editörün Seçimi',feat_title:"Seni Sert Olmak İsteyen Bir Dünyada Yumuşaklığını Nasıl Korursun?",feat_excerpt:'Gücün gürültüyle ölçüldüğü bir çağda, Müslüman kadın farklı bir güç taşır — sükûnetin, haysiyetin ve vakarın gücü.',feat_readtime:'5 dk okuma',feat_visual_label:'Kadın',
+  cat_faith:'İman ve Kimlik',cat_modern:'Modern Hayat',cat_rel:'İlişkiler',
+  art1_title:'Hicap Bir Yük Değil — O Bir Taçtır',art1_exc:"Iffeti; zorunluluktan değil, sevgiden kaynaklanan bir seçim olarak yeniden keşfetmek.",
+  art2_title:'Müslüman Hanım ve Sosyal Medya: Sınır Nerede?',art2_exc:"Teknolojiyi hayânı ve iç huzurunu kaybetmeden nasıl kullanırsın?",
+  art3_title:'Evindeki Hanım: Şefkat Gibi Görünen Güç',art3_exc:"Anne, eş, kız evlat — İslam bu rolleri seni küçümsemeden nasıl yüceltir?",
+  tag_quiz:'Öz Keşif',title_quiz:'Gerçek Bir <em>Hanım Mısın?</em>',desc_quiz:'Karakterini yansıtmak ve büyümek için dürüst, düşündürücü testler.',
+  quiz1_title:'Gerçek Bir Hanım Mısın?',quiz1_desc:"Görgünü, karakterini ve ruhunu Müslüman kadınlığının zamansız idealleriyle sına.",
+  quiz2_title:'Hayânın Ne Kadar Güçlü?',quiz2_desc:"Haya sadeece kıyafet değil — kalbin bir halidir. Nerede durduğunu keşfet.",
+  quiz3_title:'Nasıl Bir Müslüman Kadınsın?',quiz3_desc:"Âlim, bakıcı, aktivist, sanatçı — Allah'ın sana verdiği doğayı ve rolü keşfet.",
+  btn_begin:'Teste Başla',
+  tag_books:'Kitap Köşesi',title_books:'<em>Beslenen</em> Zihin İçin Kitaplar',desc_books:"Hikmet ve ilham arayan Müslüman kadın için seçilmiş okumalar.",
+  b1_word:'İlim',b2_word:'Nur',b3_word:'Sabır',b4_word:'Haya',
+  tag_comm:'Topluluk Sesleri',title_comm:'Kız Kardeşler <em>Konuşuyor</em>',desc_comm:'Bu yolculukta birbirimizi yansıtmak, paylaşmak ve teşvik etmek için bir alan.',
+  c1_name:'Fatima M.',c2_name:'Nour S.',c3_name:'Zeynep A.',
+  c1_time:'2 gün önce',c2_time:'3 gün önce',c3_time:'1 hafta önce',
+  c1_text:'Sosyal medya hakkındaki bu makale gerçekten gözlerimi açtı. JezakAllah hayr.',
+  c2_text:'Test, hanım olmanın samimiyet demek olduğunu güzelce hatırlattı. Bu site için Elhamdülillah.',
+  c3_text:'Sonunda Müslüman kadına değerlerinden vazgeçmesini söylemeden saygı gösteren bir yer. Barakallahu feek.',
+  comment_placeholder:'Düşüncelerini paylaş, kız kardeşim…',send_btn:'Gönder ✦',
+  footer_name:'Umm al-Nour',footer_arabic:'أم النور',footer_about:'Hakkımızda',footer_write:'Bizim İçin Yaz',footer_books:'Kitaplar',footer_contact:'İletişim',
+  footer_copy:"Her Müslüman kız kardeşin en gerçek benliğini araması için sevgiyle yapıldı. © 2025 Umm al-Nour",
+  q_modal_title:'Gerçek Bir Hanım Mısın?',q_modal_sub:'Dürüstçe cevapla — bu bir ayna, test değil.',
+  retake_btn:'Testi Tekrar Al',close_btn2:'Kapat',
+  questions:[
+    {q:"Biri sana sertçe konuştuğunda ilk içgüdün ne?",opts:['Aynı sertlikle karşılık veririm','Derin bir nefes alır, sakin kalırım','Sessizce uzaklaşırım','Kırılırım ve üzülürüm']},
+    {q:'Sana hizmet edenlere — temizlikçi, kasiyer, garson — nasıl davranırsın?',opts:['Saygı ve sıcaklık hak eden eşitler olarak','Kibarca ama kısaca','Bazen sabırsız olduğumu itiraf etmeliyim','Pek fark etmem']},
+    {q:'Yalnız olduğunda ve kimse seni izlemediğinde, görgün…',opts:['Herkese karşı olduğu gibi aynıdır','Biraz gevşer ama düzgün kalır','Oldukça değişir','Hiç düşünmemiştim']},
+    {q:'Arkadaşın sana sır verir. Sonra başkalarının dedikodusunu duyarsın. Sen…',opts:['Sessizce onu savunur ve ortamı terk edersin','Sessiz kalırsın — rahatsız hissedersin','Bir şey eklemezsin ama dinlersin','Durumu açıklamak için bildiklerini paylaşırsın']},
+    {q:'Bunaltıcı duygularla nasıl başa çıkarsın?',opts:['Önce namaza ve tefekkure yöneliyorum','Güvendiğim biriyle konuşuyorum','Bazen kontrolü kaybediyorum, sonra pişman oluyorum','Her şeyi içimde tutuyorum']},
+  ],
+  results:[
+    {title:'Nurlu Bir Hanım',text:"Maşaallah — kendin nadir bir zarafetle taşıyorsun. Görgün kalpten geliyor, alışkanlıktan değil. Bu nimeti besle."},
+    {title:'Gelişmekte Olan Bir Hanım',text:"Güzel bir temelin var. Niyet ve pratikle hanımlığın daha da çiçeklenecek. Her gün bir fırsat."},
+    {title:'Yolunu Bulan Bir Kız Kardeş',text:"Dürüstsün — ve dürüstlük ilk adım. İçindeki hanımın çekingen hissettiği alanlarda düşün. O orada, bekliyior."},
+  ]
+},
+ru:{
+  dir:'ltr',
+  nav_name:'Умм ан-Нур',
+  nav_articles:'Статьи',nav_quizzes:'Тесты',nav_books:'Книги',nav_community:'Сообщество',
+  hero_arabic:'بسم الله الرحمن الرحیم',
+  hero_h1:'Оставайся Леди<br>в каждом <em>Веке</em>',
+  hero_sub:'Убежище для мусульманки, которая хочет сохранить свою грацию, веру и женственную природу — не теряя себя в шуме современного мира.',
+  hero_btn1:'Пройти Тест Леди ✦',hero_btn2:'Читать Статьи',
+  tag_articles:'Избранные Статьи',title_articles:'Слова, питающие <em>Душу</em>',desc_articles:'Размышления о вере, женственности и жизни с целью в сегодняшнем мире.',
+  feat_badge:'Выбор редактора',feat_title:'Как сохранить мягкость в мире, который хочет сделать тебя жёсткой?',feat_excerpt:'В эпоху, когда силу измеряют шумом, мусульманка несёт иную силу — силу покоя, достоинства и неизменной грации.',feat_readtime:'5 мин чтения',feat_visual_label:'Женщина',
+  cat_faith:'Вера и идентичность',cat_modern:'Современная жизнь',cat_rel:'Отношения',
+  art1_title:'Хиджаб — не бремя, это Корона',art1_exc:'Открывая заново красоту и достоинство скромности как выбора, рождённого любовью, а не обязанностью.',
+  art2_title:'Мусульманка и соцсети: где граница?',art2_exc:'Как использовать технологии, не теряя своей хаи и внутреннего покоя.',
+  art3_title:'Леди в своём доме: сила, похожая на нежность',art3_exc:'Мать, жена, дочь — как Ислам возвышает эти роли, не умаляя тебя.',
+  tag_quiz:'Самопознание',title_quiz:'Ты <em>настоящая Леди?</em>',desc_quiz:'Честные, вдумчивые тесты для размышления о характере и роста.',
+  quiz1_title:'Ты настоящая Леди?',quiz1_desc:'Испытай своё воспитание, характер и дух по вечным идеалам мусульманской женственности.',
+  quiz2_title:'Насколько сильна твоя хая?',quiz2_desc:'Скромность — это больше, чем одежда, это состояние сердца. Узнай, где ты стоишь.',
+  quiz3_title:'Какая ты мусульманка?',quiz3_desc:'Учёная, хранительница, активистка, художница — исследуй свою богоданную природу и роль.',
+  btn_begin:'Начать Тест',
+  tag_books:'Книжный Уголок',title_books:'Книги для <em>Просветлённого</em> Ума',desc_books:'Избранная литература для мусульманки, ищущей мудрость и вдохновение.',
+  b1_word:'Знание',b2_word:'Свет',b3_word:'Терпение',b4_word:'Скромность',
+  tag_comm:'Голоса Сообщества',title_comm:'Сёстры <em>Говорят</em>',desc_comm:'Пространство для размышлений, обмена и поддержки друг друга на этом пути.',
+  c1_name:'Фатима М.',c2_name:'Нур С.',c3_name:'Зайнаб А.',
+  c1_time:'2 дня назад',c2_time:'3 дня назад',c3_time:'1 неделю назад',
+  c1_text:'Эта статья о соцсетях действительно открыла мне глаза. ДжазакАллах хайран.',
+  c2_text:'Тест красиво напомнил, что быть леди — это искренность. Альхамдулиллях за этот сайт.',
+  c3_text:'Наконец место, которое уважает мусульманку, не прося её отказаться от ценностей. БаракаЛлаху фикь.',
+  comment_placeholder:'Поделись своими мыслями, сестра…',send_btn:'Отправить ✦',
+  footer_name:'Умм ан-Нур',footer_arabic:'أم النور',footer_about:'О нас',footer_write:'Пиши с нами',footer_books:'Книги',footer_contact:'Контакт',
+  footer_copy:'Сделано с любовью для каждой мусульманки, ищущей своё истинное «я». © 2025 Умм ан-Нур',
+  q_modal_title:'Ты настоящая Леди?',q_modal_sub:'Отвечай честно — это зеркало, не экзамен.',
+  retake_btn:'Пройти снова',close_btn2:'Закрыть',
+  questions:[
+    {q:'Когда кто-то говорит с тобой резко, твой первый инстинкт…',opts:['Ответить с той же резкостью','Сделать вдох и сохранить спокойствие','Молча уйти','Обидеться и расстроиться']},
+    {q:'Как ты относишься к тем, кто тебя обслуживает?',opts:['Как к равным, заслуживающим тепла и уважения','Вежливо, но кратко','Иногда теряю терпение, признаю','Редко обращаю внимание']},
+    {q:'Когда ты одна и никто не видит, твои манеры…',opts:['Точно такие же, как на людях','Немного расслабляются, но остаются приличными','Сильно меняются','Никогда об этом не думала']},
+    {q:'Подруга доверяет тебе тайну. Позже слышишь сплетни о ней. Ты…',opts:['Тихо защищаешь её и покидаешь компанию','Молчишь — тебе неловко','Ничего не добавляешь, но слушаешь','Делишься тем, что знаешь, для объяснения']},
+    {q:'Как ты справляешься с переполняющими эмоциями?',opts:['Прежде всего обращаюсь к молитве и размышлению','Говорю с тем, кому доверяю','Иногда теряю контроль, потом сожалею','Держу всё внутри']},
+  ],
+  results:[
+    {title:'Леди Света',text:'МашаАллах — ты несёшь себя с редкой грацией и искренностью. Твои манеры идут от сердца. Береги этот дар.'},
+    {title:'Леди в становлении',text:'У тебя прекрасный фундамент. С намерением и практикой твоя женственность расцветёт ещё больше. Каждый день — возможность.'},
+    {title:'Сестра, ищущая свой путь',text:'Ты честна — а честность это первый шаг. Поразмысли над теми сторонами, где твоя внутренняя леди стесняется. Она там, ждёт тебя.'},
+  ]
+}
+};
+
+let currentLang='en';
+let cur=0,scores=[];
+
+function setLang(lang){
+  currentLang=lang;
+  const L=LANGS[lang];
+  document.body.setAttribute('dir',L.dir);
+  document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.remove('active')});
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+  document.getElementById('nav-name').textContent=L.nav_name;
+  document.getElementById('hero-arabic').textContent=L.hero_arabic;
+  document.getElementById('hero-h1').innerHTML=L.hero_h1;
+  document.getElementById('hero-sub').textContent=L.hero_sub;
+  document.getElementById('hero-btn1').textContent=L.hero_btn1;
+  document.getElementById('hero-btn2').textContent=L.hero_btn2;
+  document.getElementById('tag-articles').textContent=L.tag_articles;
+  document.getElementById('title-articles').innerHTML=L.title_articles;
+  document.getElementById('desc-articles').textContent=L.desc_articles;
+  document.getElementById('feat-badge').textContent=L.feat_badge;
+  document.getElementById('feat-title').textContent=L.feat_title;
+  document.getElementById('feat-excerpt').textContent=L.feat_excerpt;
+  document.getElementById('feat-readtime').textContent=L.feat_readtime;
+  document.getElementById('feat-visual-label').textContent=L.feat_visual_label;
+  document.getElementById('tag-quiz').textContent=L.tag_quiz;
+  document.getElementById('title-quiz').innerHTML=L.title_quiz;
+  document.getElementById('desc-quiz').textContent=L.desc_quiz;
+  document.getElementById('tag-books').textContent=L.tag_books;
+  document.getElementById('title-books').innerHTML=L.title_books;
+  document.getElementById('desc-books').textContent=L.desc_books;
+  document.getElementById('tag-comm').textContent=L.tag_comm;
+  document.getElementById('title-comm').innerHTML=L.title_comm;
+  document.getElementById('desc-comm').textContent=L.desc_comm;
+  document.getElementById('c1-name').textContent=L.c1_name;
+  document.getElementById('c2-name').textContent=L.c2_name;
+  document.getElementById('c3-name').textContent=L.c3_name;
+  document.getElementById('c1-time').textContent=L.c1_time;
+  document.getElementById('c2-time').textContent=L.c2_time;
+  document.getElementById('c3-time').textContent=L.c3_time;
+  document.getElementById('c1-text').textContent=L.c1_text;
+  document.getElementById('c2-text').textContent=L.c2_text;
+  document.getElementById('c3-text').textContent=L.c3_text;
+  document.getElementById('commentInput').placeholder=L.comment_placeholder;
+  document.getElementById('send-btn').textContent=L.send_btn;
+  document.getElementById('footer-name').textContent=L.footer_name;
+  document.getElementById('footer-arabic').textContent=L.footer_arabic;
+  document.getElementById('footer-copy').textContent=L.footer_copy;
+  document.getElementById('qModalTitle').textContent=L.q_modal_title;
+  document.getElementById('qModalSub').textContent=L.q_modal_sub;
+  document.getElementById('retake-btn').textContent=L.retake_btn;
+  document.getElementById('close-btn2').textContent=L.close_btn2;
+
+  const keys={
+    cat_faith:L.cat_faith,cat_modern:L.cat_modern,cat_rel:L.cat_rel,
+    art1_title:L.art1_title,art1_exc:L.art1_exc,
+    art2_title:L.art2_title,art2_exc:L.art2_exc,
+    art3_title:L.art3_title,art3_exc:L.art3_exc,
+    quiz1_title:L.quiz1_title,quiz1_desc:L.quiz1_desc,
+    quiz2_title:L.quiz2_title,quiz2_desc:L.quiz2_desc,
+    quiz3_title:L.quiz3_title,quiz3_desc:L.quiz3_desc,
+    btn_begin:L.btn_begin,
+    b1_word:L.b1_word,b2_word:L.b2_word,b3_word:L.b3_word,b4_word:L.b4_word,
+    footer_about:L.footer_about,footer_write:L.footer_write,footer_books:L.footer_books,footer_contact:L.footer_contact
+  };
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const k=el.getAttribute('data-key');
+    if(keys[k]!==undefined)el.textContent=keys[k];
+  });
+
+  if(lang==='ar'||lang==='fa'){
+    document.querySelectorAll('.feat-meta').forEach(el=>el.style.flexDirection='row-reverse');
+    document.querySelectorAll('.card-footer').forEach(el=>el.style.flexDirection='row-reverse');
+    document.querySelectorAll('.comment-author').forEach(el=>el.style.flexDirection='row-reverse');
+    document.querySelectorAll('.comment-text').forEach(el=>{el.style.paddingLeft='0';el.style.paddingRight='34px'});
+    document.querySelectorAll('.comment-time').forEach(el=>el.style.marginLeft='0');
+    document.querySelectorAll('.add-comment').forEach(el=>el.style.flexDirection='row-reverse');
+  } else {
+    document.querySelectorAll('.feat-meta').forEach(el=>el.style.flexDirection='row');
+    document.querySelectorAll('.card-footer').forEach(el=>el.style.flexDirection='row');
+    document.querySelectorAll('.comment-author').forEach(el=>el.style.flexDirection='row');
+    document.querySelectorAll('.comment-text').forEach(el=>{el.style.paddingLeft='34px';el.style.paddingRight='0'});
+    document.querySelectorAll('.add-comment').forEach(el=>el.style.flexDirection='row');
+  }
+
+  cur=0;scores=[];
+  loadQ();
+}
+
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+function openQuiz(){
+  cur=0;scores=[];
+  document.getElementById('liveQuiz').style.display='block';
+  document.getElementById('quizResult').style.display='none';
+  loadQ();
+  document.getElementById('quizOverlay').classList.add('active');
+}
+function closeQuiz(){document.getElementById('quizOverlay').classList.remove('active')}
+
+function loadQ(){
+  const L=LANGS[currentLang];
+  const q=L.questions[cur];
+  if(!q)return;
+  document.getElementById('qText').textContent=(cur+1)+'. '+q.q;
+  document.getElementById('progBar').style.width=((cur+1)/L.questions.length*100)+'%';
+  const opts=document.getElementById('qOptions');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='q-option';
+    b.textContent=o;
+    if(LANGS[currentLang].dir==='rtl')b.style.textAlign='right';
+    b.onclick=()=>answer(i,b);
+    opts.appendChild(b);
+  });
+}
+function answer(i,btn){
+  document.querySelectorAll('.q-option').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  scores.push(i);
+  setTimeout(()=>{
+    cur++;
+    const L=LANGS[currentLang];
+    if(cur<L.questions.length){loadQ();}
+    else{showResult();}
+  },600);
+}
+function showResult(){
+  const L=LANGS[currentLang];
+  document.getElementById('liveQuiz').style.display='none';
+  document.getElementById('quizResult').style.display='block';
+  const avg=scores.reduce((a,b)=>a+b,0)/scores.length;
+  const ri=avg<1?0:avg<2.5?1:2;
+  document.getElementById('resultTitle').textContent=L.results[ri].title;
+  document.getElementById('resultText').textContent=L.results[ri].text;
+  document.getElementById('progBar').style.width='100%';
+}
+function restartQuiz(){cur=0;scores=[];document.getElementById('liveQuiz').style.display='block';document.getElementById('quizResult').style.display='none';loadQ();}
+
+function toggleLike(btn){
+  const liked=btn.classList.toggle('liked');
+  const num=parseInt(btn.textContent.replace(/\D/g,''));
+  btn.textContent=(liked?'♥ ':'♡ ')+(liked?num+1:num-1);
+}
+
+function addComment(){
+  const inp=document.getElementById('commentInput');
+  const text=inp.value.trim();
+  if(!text)return;
+  const colors=['av1','av2','av3','av4','av5'];
+  const col=colors[Math.floor(Math.random()*colors.length)];
+  const box=document.createElement('div');
+  box.className='comment-box';
+  const isRtl=LANGS[currentLang].dir==='rtl';
+  box.innerHTML=`<div class="comment-author" style="flex-direction:${isRtl?'row-reverse':'row'}"><div class="comment-avatar ${col}">Y</div><span>${LANGS[currentLang].nav_community==='المجتمع'?'أنتِ':'You'}</span><span class="comment-time" style="margin-left:${isRtl?'0':'auto'};margin-right:${isRtl?'auto':'0'}">now</span></div><p class="comment-text" style="padding-left:${isRtl?'0':'34px'};padding-right:${isRtl?'34px':'0'}">${text}</p>`;
+  document.getElementById('user-comments').appendChild(box);
+  box.scrollIntoView({behavior:'smooth'});
+  inp.value='';
+}
+
+loadQ();
+</script>
